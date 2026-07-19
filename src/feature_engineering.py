@@ -1,4 +1,3 @@
-# Predictive maintenance feature engineering
 from pathlib import Path
 
 import pandas as pd
@@ -9,8 +8,16 @@ INPUT_PATH = Path(
 )
 
 OUTPUT_PATH = Path(
-    "data/processed/context_features.csv"
+    "data/processed/modeling_dataset.csv"
 )
+
+LEAKAGE_COLUMNS = [
+    "twf",
+    "hdf",
+    "pwf",
+    "osf",
+    "rnf",
+]
 
 
 def main() -> None:
@@ -44,6 +51,52 @@ def main() -> None:
         * df["ambient_temperature_c"]
     )
 
+    existing_leakage_columns = [
+        column
+        for column in LEAKAGE_COLUMNS
+        if column in df.columns
+    ]
+
+    df = df.drop(
+        columns=existing_leakage_columns
+    )
+
+    identifier_columns = [
+        column
+        for column in [
+            "udi",
+            "product_id",
+            "timestamp",
+        ]
+        if column in df.columns
+    ]
+
+    df = df.drop(
+        columns=identifier_columns
+    )
+
+    if "type" in df.columns:
+        df = pd.get_dummies(
+            df,
+            columns=["type"],
+            drop_first=False,
+            dtype=int
+        )
+
+    non_numeric_columns = (
+        df.select_dtypes(
+            exclude="number"
+        )
+        .columns
+        .tolist()
+    )
+
+    if non_numeric_columns:
+        raise ValueError(
+            "Non-numeric columns remain: "
+            f"{non_numeric_columns}"
+        )
+
     OUTPUT_PATH.parent.mkdir(
         parents=True,
         exist_ok=True
@@ -54,15 +107,10 @@ def main() -> None:
         index=False
     )
 
-    created_features = [
-        "temperature_difference_k",
-        "mechanical_power_proxy",
-        "wear_torque_interaction",
-        "load_temperature_interaction",
-    ]
-
-    print(df[created_features].head())
-    print(f"Saved to: {OUTPUT_PATH}")
+    print("Final shape:", df.shape)
+    print("\nTarget distribution:")
+    print(df["machine_failure"].value_counts())
+    print(f"\nSaved to: {OUTPUT_PATH}")
 
 
 if __name__ == "__main__":
