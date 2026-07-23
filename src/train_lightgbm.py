@@ -66,7 +66,7 @@ def main() -> None:
     )
 
     print("Macro F1 scores:", scores)
-    print("Mean Macro F1:", scores.mean())
+    print("Mean Macro F1:", scores.mean()))
 
 
 if __name__ == "__main__":
