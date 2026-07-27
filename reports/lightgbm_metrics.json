@@ -1,0 +1,15 @@
+{
+  "test_macro_f1": 0.9305078333114561,
+  "failure_precision": 0.8787878787878788,
+  "failure_recall": 0.8529411764705882,
+  "confusion_matrix": [
+    [
+      1924,
+      8
+    ],
+    [
+      10,
+      58
+    ]
+  ]
+}
