@@ -1,0 +1,7 @@
+{
+  "average_precision": 0.8835044445069611,
+  "best_threshold": 0.8493853104553297,
+  "best_failure_f1": 0.887096774193053,
+  "default_macro_f1": 0.9305078333114561,
+  "tuned_macro_f1": 0.9417424015446586
+}
