@@ -1,0 +1,8 @@
+# Optional local training/explainability dependencies.
+# Streamlit Cloud uses requirements.txt for the lightweight dashboard deploy.
+seaborn
+scikit-learn
+imbalanced-learn
+lightgbm
+shap
+joblib
