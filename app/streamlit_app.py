@@ -157,8 +157,23 @@ def inject_styles() -> None:
     st.markdown(
         """
         <style>
+        :root {
+            --tp-surface: rgba(128, 128, 128, 0.12);
+            --tp-surface-soft: rgba(128, 128, 128, 0.16);
+            --tp-border: rgba(128, 128, 128, 0.28);
+            --tp-text: var(--text-color);
+            --tp-muted: rgba(128, 128, 128, 0.92);
+            --tp-label: var(--primary-color);
+            --tp-shadow: rgba(0, 0, 0, 0.14);
+            --tp-surface: color-mix(in srgb, var(--background-color) 86%, var(--text-color) 14%);
+            --tp-surface-soft: color-mix(in srgb, var(--background-color) 78%, var(--text-color) 22%);
+            --tp-border: color-mix(in srgb, var(--text-color) 24%, transparent);
+            --tp-muted: color-mix(in srgb, var(--text-color) 72%, transparent);
+            --tp-label: color-mix(in srgb, var(--primary-color) 72%, var(--text-color) 28%);
+        }
         .stApp {
-            background: linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%);
+            background: var(--background-color);
+            color: var(--text-color);
         }
         [data-testid="stSidebar"] {
             background: #101827;
@@ -186,16 +201,16 @@ def inject_styles() -> None:
             color: rgba(255,255,255,0.88);
         }
         .metric-card {
-            border: 1px solid rgba(15, 23, 42, 0.10);
+            border: 1px solid var(--tp-border);
             border-radius: 8px;
             padding: 18px 18px 16px;
-            background: white;
+            background: var(--tp-surface);
             min-height: 126px;
-            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+            box-shadow: 0 10px 24px var(--tp-shadow);
         }
         .metric-card span {
             display: block;
-            color: #64748b;
+            color: var(--tp-label);
             font-size: 0.82rem;
             font-weight: 700;
             letter-spacing: 0.02em;
@@ -203,18 +218,18 @@ def inject_styles() -> None:
         }
         .metric-card strong {
             display: block;
-            color: #0f172a;
+            color: var(--tp-text);
             font-size: 2rem;
             line-height: 1.15;
             margin-top: 10px;
         }
         .metric-card small {
-            color: #475569;
+            color: var(--tp-muted);
             display: block;
             margin-top: 8px;
         }
         .section-note {
-            color: #475569;
+            color: var(--tp-muted);
             font-size: 0.96rem;
             margin-bottom: 14px;
         }
@@ -225,17 +240,17 @@ def inject_styles() -> None:
             margin-bottom: 12px;
         }
         .step-box {
-            background: white;
-            border: 1px solid rgba(15, 23, 42, 0.10);
+            background: var(--tp-surface);
+            border: 1px solid var(--tp-border);
             border-radius: 8px;
             padding: 15px 16px;
             height: 100%;
         }
         .step-box b {
-            color: #0f172a;
+            color: var(--tp-text);
         }
         .step-box p {
-            color: #475569;
+            color: var(--tp-muted);
             margin: 7px 0 0;
         }
         </style>
@@ -401,3 +416,5 @@ st.divider()
 st.caption(
     "Built with Streamlit, Pandas, NumPy, Matplotlib, and saved model reports. Values are for portfolio demonstration and maintenance decision support, not automated machine control."
 )
+
+
